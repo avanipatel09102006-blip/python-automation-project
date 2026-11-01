@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart Folder Automation</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<main class="wrap">
+  <header class="top">
+    <div><h1>Smart Folder Automation</h1><p class="muted">Sort messy folders by file type, automatically. Nothing is deleted, every run can be undone.</p></div>
+    <span id="live" class="live" title="Dashboard refreshes every 15 seconds">Live</span>
+  </header>
+
+  <section class="stats" id="stats"></section>
+
+  <section class="card">
+    <h2>Watched folders</h2>
+    <form id="addForm" class="add">
+      <input id="path" placeholder="C:\Users\YourName\Downloads" aria-label="Folder path" spellcheck="false" required>
+      <select id="interval" aria-label="Automatic schedule">
+        <option value="0">Manual only</option><option value="5">Auto: every 5 min</option><option value="15">Auto: every 15 min</option>
+        <option value="60">Auto: every hour</option><option value="1440">Auto: daily</option>
+      </select>
+      <button class="btn primary">Add folder</button>
+    </form>
+    <p id="addErr" class="err" role="alert"></p>
+    <div id="folders" class="folders"></div>
+    <p id="noFolders" class="empty" hidden>Add a folder inside your user folder to get started.</p>
+  </section>
+
+  <section class="card">
+    <h2>Category breakdown</h2>
+    <div id="cats"></div>
+    <p id="noCats" class="empty" hidden>Run an organisation to see results here.</p>
+  </section>
+
+  <section class="card">
+    <h2>Run history</h2>
+    <div class="table-wrap cards"><table><thead><tr><th>When</th><th>Folder</th><th>Trigger</th><th>Files</th><th>Size</th><th>Status</th><th></th></tr></thead><tbody id="runs"></tbody></table></div>
+    <p id="noRuns" class="empty" hidden>No runs yet.</p>
+  </section>
+</main>
+
+<dialog id="dlg">
+  <h2 id="dlgTitle"></h2><p id="dlgSub" class="muted"></p>
+  <div id="chips" class="chips"></div>
+  <div class="table-wrap files"><table><tbody id="dlgBody"></tbody></table></div>
+  <div class="row"><button id="dlgClose" class="btn ghost">Close</button><button id="dlgGo" class="btn primary" hidden></button></div>
+</dialog>
+<div id="toast" class="toast" role="status"></div>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
